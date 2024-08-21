@@ -57,6 +57,13 @@ A **Cassandra** cluster is used to store and serve the processed data from the S
 
 ## 🌟 Future Enhancements
 
+### 🚨 **Real-time Alerts and Notifications:**
+- **Anomaly Detection:**  
+  Implement real-time anomaly detection to trigger alerts when unusual sentiment trends are detected in specific subreddits, enabling quicker response to emerging issues.
+  
+- **Sentiment-Based Notifications:**  
+  Develop a notification system that sends alerts or emails when certain sentiment thresholds are crossed (e.g., a sudden spike in negative sentiment).
+
 ### 🔍 **Advanced Sentiment Analysis Techniques:**
 - **Deep Learning Models:**  
   Integrate more advanced sentiment analysis models such as BERT or GPT-based models to improve the accuracy of sentiment classification.
@@ -79,12 +86,6 @@ A **Cassandra** cluster is used to store and serve the processed data from the S
 - **Geographical Visualization:**  
   Incorporate geospatial data to visualize sentiment trends on a map, showing how opinions vary across different regions or countries.
 
-### 🚨 **Real-time Alerts and Notifications:**
-- **Anomaly Detection:**  
-  Implement real-time anomaly detection to trigger alerts when unusual sentiment trends are detected in specific subreddits, enabling quicker response to emerging issues.
-  
-- **Sentiment-Based Notifications:**  
-  Develop a notification system that sends alerts or emails when certain sentiment thresholds are crossed (e.g., a sudden spike in negative sentiment).
 
 
 
