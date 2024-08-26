@@ -15,19 +15,19 @@
 ## 🚀 **Project Flow Overview**
 
 ### 🛠️ **Data Ingestion**
-A containerized Python application called `reddit_producer` connects to the Reddit API using credentials provided in the `secrets/credentials.cfg` file. It retrieves comments from specified Reddit topics, converts them into JSON format, and sends the JSON messages to a Kafka broker. The **PRAW** Python library is used for interacting with the Reddit API. **Multi-threading** is implemented to process comments from multiple subreddits simultaneously.
+A Python application called `reddit_producer` connects to the Reddit API using credentials. It retrieves comments from specified Reddit topics, converts them into JSON format, and sends the serialized JSON messages to a Kafka broker. The **PRAW** Python library is used for interacting with the Reddit API. **Multi-threading** is implemented to stream comments from multiple subreddits simultaneously.
 
 ### 📡 **Message Broker**
-The **Kafka broker** (`kafkaservice` pod) receives messages from the `reddit_producer`. Upon startup, another container named `kafkainit` creates the topic `redditcomments`. **Zookeeper** is launched before Kafka to manage Kafka metadata.
+The **Kafka broker** receives messages from the `reddit_producer` and writes them into topic `redditcomments`. **Zookeeper** is launched before Kafka to manage Kafka metadata.
 
 ### ⚙️ **Stream Processor**
 A **Spark** deployment is initiated to consume and process the data from the Kafka topic `redditcomments`. The PySpark script `spark/stream_processor.py` handles data consumption and processing, performing sentiment analysis on the comments using the **NLTK** library. The processed data is then written to **Cassandra** tables.
 
 ### 🗄️ **Processed Data Storage**
-A **Cassandra** cluster is used to store and serve the processed data from the Spark job. When Cassandra starts, another container named `cassandrainit` creates the keyspace `reddit` and the tables `comments` and `subreddit_sentiment_avg`. The raw comments data is written to the `reddit.comments` table, and the aggregated sentiment data (e.g., average sentiment score for each subreddit) is written to the `reddit.subreddit_sentiment_avg` table.
+A **Cassandra** cluster is used to store and serve the processed data from the Spark job in `reddit` keyspace. The raw comments data is written to the `reddit.comments` table, and the aggregated sentiment data (e.g., average sentiment score for each subreddit) is written to the `reddit.subreddit_sentiment_avg` table.
 
 ### 📊 **Data Visualization**
-**Grafana** connects to the Cassandra database. It queries the aggregated data from Cassandra and presents it visually to users through a dashboard. This allows for the analysis of sentiment trends across different subreddits.
+**Grafana** connects to the Cassandra database. It queries the aggregated data from Cassandra in real time and presents it visually to users through a dashboard. This allows for the live analysis of sentiment trends across different subreddits.
 
 
 ### Architecture Diagram
